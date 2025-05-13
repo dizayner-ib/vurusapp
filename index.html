@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XƏTA #666</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .glitch-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.imgur.com/7Zq7Z2Q.jpg') no-repeat center center;
+            background-size: cover;
+            opacity: 0.7;
+            z-index: -1;
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            0% { filter: hue-rotate(0deg); }
+            20% { transform: skew(5deg); }
+            40% { opacity: 0.8; }
+            60% { filter: hue-rotate(90deg); }
+            80% { transform: scale(1.1); }
+            100% { filter: hue-rotate(0deg); }
+        }
+
+        .error-message {
+            text-align: center;
+            margin-top: 20vh;
+            font-size: 2em;
+            text-shadow: 0 0 10px #ff0000;
+            animation: flicker 0.1s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .scary-face {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10em;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 100;
+        }
+
+        .blood {
+            position: absolute;
+            background-color: #ff0000;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: drip 5s linear infinite;
+        }
+
+        .screen-static {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.8) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="glitch-effect"></div>
+    <div class="screen-static"></div>
+
+    <div class="error-message">
+        <h1>XƏTA #666</h1>
+        <p>XƏBƏRDARLIQ: CİHAZINIZA VİRUS DAXİL OLDU!</p>
+        <p id="countdown">Özünü məhv etmə başladı....!</p>
+    </div>
+
+<div class="scary-face" id="scaryFace" style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 1000;
+    pointer-events: none;
+">
+    <img src="https://elements-resized.envatousercontent.com/elements-video-cover-images/7d75adfb-cf7f-4303-8028-9a4d0b4011be/video_preview/video_preview_0000.jpg?w=500&cf_fit=cover&q=85&format=auto&s=76cd19c259faa23868177d16b61810e2a7cf31d4216bfdb70f7d2d50586bb88e" alt="Qorxulu şəkil" style="
+        max-width: 80vw;
+        max-height: 80vh;
+        filter: drop-shadow(0 0 10px red);
+    ">
+</div>
+
+    <audio id="scarySound" loop>
+        <source src="Welcome to the Game - Hacking Alert.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="staticSound" loop>
+        <source src="Welcome to the Game - Hacking Alert.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Qorxulu səslər
+        const scarySound = document.getElementById('scarySound');
+        const staticSound = document.getElementById('staticSound');
+        staticSound.play();
+
+        // Ekran arızası effekti
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.body.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
+        });
+
+        // Qorxulu üz effekti
+        setTimeout(() => {
+            document.getElementById('scaryFace').style.opacity = '1';
+            scarySound.play();
+        }, 6000);
+
+        // Geri sayım
+        let timeLeft = 100000;
+        const countdown = setInterval(() => {
+            document.getElementById('countdown').textContent = 
+                `${timeLeft} saniyə ərzində bağlanacaq...`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(countdown);
+                document.body.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: black;
+                        color: red;
+                        font-size: 3em;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                    ">
+                    </div>
+                `;
+            }
+        }, 1000);
+
+
+
+        setInterval(createBlood, 200);
+
+        // İstifadəçi interaksiyasından sonra oynat
+document.addEventListener('click', function() {
+    const audio = document.getElementById('scarySound');
+    audio.play().catch(e => console.log("Səs oynadıla bilmədi:", e));
+});
+    </script>
+</body>
+</html>
